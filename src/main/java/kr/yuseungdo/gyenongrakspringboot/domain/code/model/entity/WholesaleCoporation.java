@@ -1,24 +1,27 @@
-package kr.blay.gyenongrakspringboot.domain.gyenongrak.model.entity;
+package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+// 도매 법인
 @Entity
 @Getter
+@Table(name = "wholesale_coporation")
 @NoArgsConstructor
-@Table(name = "product_variety")
-public class ProductVariety {
+public class WholesaleCoporation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
     @Column(unique = true)
     private String code;
 
     @ManyToOne
-    @JoinColumn(name = "category_id")
-    private AgriculturalCategory category;
+    @JoinColumn(name = "wholesale_market_id")
+    private WholesaleMarket wholesaleMarket;
+
 }

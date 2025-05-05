@@ -1,4 +1,4 @@
-package kr.blay.gyenongrakspringboot.domain.gyenongrak.model.entity;
+package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 
 import jakarta.persistence.*;

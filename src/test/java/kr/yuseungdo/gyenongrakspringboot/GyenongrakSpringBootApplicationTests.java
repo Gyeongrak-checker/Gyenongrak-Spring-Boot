@@ -1,4 +1,4 @@
-package kr.blay.gyenongrakspringboot;
+package kr.yuseungdo.gyenongrakspringboot;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

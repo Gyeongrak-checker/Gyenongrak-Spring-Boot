@@ -1,6 +1,8 @@
-package kr.blay.gyenongrakspringboot.domain.gyenongrak.model.entity;
+package kr.yuseungdo.gyenongrakspringboot.domain.search.model.entity;
 
 import jakarta.persistence.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import lombok.Getter;
 
 import java.util.Date;

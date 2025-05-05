@@ -1,4 +1,4 @@
-package kr.blay.gyenongrakspringboot;
+package kr.yuseungdo.gyenongrakspringboot;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
