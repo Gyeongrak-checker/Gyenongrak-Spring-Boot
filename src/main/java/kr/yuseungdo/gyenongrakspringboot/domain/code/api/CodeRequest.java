@@ -4,8 +4,10 @@ import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.*;
 
 import java.util.List;
 
-public interface Request {
-    List<UnitCodeDto> getUnits(int page, int row);
+// 경매시간, 품목, 산지, 거래량, 규격, 경락가
+
+public interface CodeRequest {
+    UnitApiResponse getUnits(int page, int row);
     List<SizeCodeDto> getSize(int page, int row);
     List<GradeCodDto> getGrades(int page, int row);
     List<CategoryCodeDto> getAgriculturalCategories(int page, int row);
