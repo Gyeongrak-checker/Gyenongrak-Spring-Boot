@@ -6,8 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.web.util.DefaultUriBuilderFactory;
 
 class AtCodeRequestTest {
 
@@ -16,10 +15,15 @@ class AtCodeRequestTest {
     @Test
     // 요청이 제대로 되는지 테스트
     void getUnits() {
-        CodeRequest codeRequest = new AtCodeRequest(WebClient.create());
+
+        DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
+        factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
+        WebClient webClient = WebClient.builder().uriBuilderFactory(factory).build();
+
+        CodeRequest codeRequest = new AtCodeRequest(webClient);
         UnitApiResponse unitApiResponse = codeRequest.getUnits(1, 100);
 
-        log.info(unitApiResponse.getResponse().getBody().getItems().toString());
+        log.info(unitApiResponse.toString());
     }
 
 }

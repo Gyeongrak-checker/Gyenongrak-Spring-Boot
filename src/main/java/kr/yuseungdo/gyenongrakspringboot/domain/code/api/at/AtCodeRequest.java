@@ -36,7 +36,7 @@ public class AtCodeRequest implements CodeRequest {
     @Override
     public UnitApiResponse getUnits(int page, int row) {
         return webClient.get()
-                .uri() // 중복 인코딩 의심
+                .uri("https://apis.data.go.kr/B552845/katCode/units?serviceKey=" + apiKey + "&page=" + page + "&row=" + row)
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve()
                 .bodyToMono(UnitApiResponse.class)
