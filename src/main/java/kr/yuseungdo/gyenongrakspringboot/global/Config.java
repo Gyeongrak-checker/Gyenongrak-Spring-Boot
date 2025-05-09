@@ -12,7 +12,7 @@ public class Config {
     public WebClient webClient() {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
-        return WebClient.builder().uriBuilderFactory(factory).build();
+        return WebClient.builder().baseUrl("https://apis.data.go.kr").uriBuilderFactory(factory).build();
     }
 
 

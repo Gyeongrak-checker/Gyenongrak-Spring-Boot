@@ -1,65 +1,59 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.CodeRequest;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.request.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
-
-import java.util.List;
-import java.util.Map;
+import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
 @Component
 @RequiredArgsConstructor
-public class AtCodeRequest implements CodeRequest {
+public class AtCodeRequest {
 
     private final WebClient webClient;
 
-    private static final String REQUEST_URL = "https://apis.data.go.kr/B552845/katCode";
-
-    private static final Map<String, String> UNITS = Map.of(
-        "units", "/units",
-        "grade", "/grade",
-        "package", "/packagings",
-        "sizes", "/sizes",
-        "markets", "/wholesaleMarkets",
-        "cop", "/corps",
-        "product", "/goods"
-    );
-
-
-    @Value("api-key.code")
+    @Value("${api-key.code}")
     private String apiKey;
 
-    @Override
-    public UnitApiResponse getUnits(int page, int row) {
+    private ResponseSpec request(int page, int row, ServicePath path) {
         return webClient.get()
-                .uri("https://apis.data.go.kr/B552845/katCode/units?serviceKey=" + apiKey + "&page=" + page + "&row=" + row)
+                .uri(uriBuilder ->
+                        uriBuilder.path("/B552845/katCode" + path.getPath())
+                                .queryParam("serviceKey", apiKey)
+                                .queryParam("page", page)
+                                .queryParam("row", row)
+                                .build()
+                )
                 .accept(MediaType.APPLICATION_JSON)
-                .retrieve()
+                .retrieve();
+    }
+
+    public UnitApiResponse getUnits(int page, int row) {
+        return request(page, row, ServicePath.UNITS)
                 .bodyToMono(UnitApiResponse.class)
                 .block();
     }
 
-    @Override
-    public List<SizeCodeDto> getSize(int page, int row) {
-        throw new UnsupportedOperationException();
+
+    public SizeApiResponse getSize(int page, int row) {
+        return request(page, row, ServicePath.SIZES)
+                .bodyToMono(SizeApiResponse.class)
+                .block();
     }
 
-    @Override
-    public List<GradeCodDto> getGrades(int page, int row) {
-        throw new UnsupportedOperationException();
+
+    public GradeApiResponse getGrades(int page, int row) {
+        return request(page, row, ServicePath.GRADE)
+                .bodyToMono(GradeApiResponse.class)
+                .block();
     }
 
-    @Override
-    public List<CategoryCodeDto> getAgriculturalCategories(int page, int row) {
-        throw new UnsupportedOperationException();
-    }
 
-    @Override
-    public List<PackageCodeDto> getPackages(int page, int row) {
-        throw new UnsupportedOperationException();
+    public PackageApiResponse getPackages(int page, int row) {
+        return request(page, row, ServicePath.PACKAGE)
+                .bodyToMono(PackageApiResponse.class)
+                .block();
     }
 }

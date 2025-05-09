@@ -1,6 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.CodeRequest;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.AtCodeRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class CodeService {
 
-    private final CodeRequest codeRequest;
+    private final AtCodeRequest codeRequest;
 
 
 

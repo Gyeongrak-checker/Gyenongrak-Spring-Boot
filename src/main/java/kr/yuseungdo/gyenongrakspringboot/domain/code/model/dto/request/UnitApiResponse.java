@@ -1,4 +1,4 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto;
+package kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.request;
 
 import lombok.Data;
 
