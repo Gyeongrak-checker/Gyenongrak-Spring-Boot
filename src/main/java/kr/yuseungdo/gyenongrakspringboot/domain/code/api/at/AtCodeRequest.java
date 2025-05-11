@@ -17,10 +17,15 @@ public class AtCodeRequest {
     @Value("${api-key.code}")
     private String apiKey;
 
+    private final String schema = "https";
+    private final String host = "apis.data.go.kr";
+    private final String codePath = "/B552845/katCode";
+
+
     private ResponseSpec request(int page, int row, ServicePath path) {
         return webClient.get()
                 .uri(uriBuilder ->
-                        uriBuilder.path("/B552845/katCode" + path.getPath())
+                        uriBuilder.scheme(schema).host(host).path(codePath + path.getPath())
                                 .queryParam("serviceKey", apiKey)
                                 .queryParam("page", page)
                                 .queryParam("row", row)
