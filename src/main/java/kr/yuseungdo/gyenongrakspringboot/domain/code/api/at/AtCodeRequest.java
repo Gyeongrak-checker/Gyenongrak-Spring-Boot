@@ -1,8 +1,10 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.request.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.ApiResponse;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.UnitCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -30,30 +32,30 @@ public class AtCodeRequest {
                 .retrieve();
     }
 
-    public UnitApiResponse getUnits(int page, int row) {
+    public ApiResponse<UnitCode> getUnits(int page, int row) {
         return request(page, row, ServicePath.UNITS)
-                .bodyToMono(UnitApiResponse.class)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitCode>>() {})
                 .block();
     }
 
 
-    public SizeApiResponse getSize(int page, int row) {
-        return request(page, row, ServicePath.SIZES)
-                .bodyToMono(SizeApiResponse.class)
-                .block();
-    }
-
-
-    public GradeApiResponse getGrades(int page, int row) {
-        return request(page, row, ServicePath.GRADE)
-                .bodyToMono(GradeApiResponse.class)
-                .block();
-    }
-
-
-    public PackageApiResponse getPackages(int page, int row) {
-        return request(page, row, ServicePath.PACKAGE)
-                .bodyToMono(PackageApiResponse.class)
-                .block();
-    }
+//    public SizeApiResponse getSize(int page, int row) {
+//        return request(page, row, ServicePath.SIZES)
+//                .bodyToMono(SizeApiResponse.class)
+//                .block();
+//    }
+//
+//
+//    public GradeApiResponse getGrades(int page, int row) {
+//        return request(page, row, ServicePath.GRADE)
+//                .bodyToMono(GradeApiResponse.class)
+//                .block();
+//    }
+//
+//
+//    public PackageApiResponse getPackages(int page, int row) {
+//        return request(page, row, ServicePath.PACKAGE)
+//                .bodyToMono(PackageApiResponse.class)
+//                .block();
+//    }
 }

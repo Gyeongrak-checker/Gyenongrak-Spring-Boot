@@ -1,6 +1,7 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.request.UnitApiResponse;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.ApiResponse;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.UnitCode;
 import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,7 +21,7 @@ class AtCodeRequestTest {
         WebClient webClient = WebClient.builder().uriBuilderFactory(factory).baseUrl("https://apis.data.go.kr/B552845/katCode").build();
 
         AtCodeRequest codeRequest = new AtCodeRequest(webClient);
-        UnitApiResponse unitApiResponse = codeRequest.getUnits(1, 100);
+        ApiResponse<UnitCode> unitApiResponse = codeRequest.getUnits(1, 100);
 
         log.info(unitApiResponse.toString());
     }
