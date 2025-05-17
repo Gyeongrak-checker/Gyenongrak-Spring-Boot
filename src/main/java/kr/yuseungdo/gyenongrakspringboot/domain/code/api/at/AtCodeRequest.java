@@ -1,10 +1,8 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.ApiResponse;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.UnitCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -37,9 +35,9 @@ public class AtCodeRequest {
                 .retrieve();
     }
 
-    public ApiResponse<UnitCode> getUnits(int page, int row) {
+    public ApiResponse getUnits(int page, int row) {
         return request(page, row, ServicePath.UNITS)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitCode>>() {})
+                .bodyToMono(ApiResponse.class)
                 .block();
     }
 

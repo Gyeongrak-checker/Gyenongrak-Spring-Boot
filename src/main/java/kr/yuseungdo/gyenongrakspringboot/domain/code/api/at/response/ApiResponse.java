@@ -1,18 +1,19 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response;
 
-import lombok.Data;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.InfoCode;
+import lombok.*;
 
 import java.util.List;
 
 @Data
-public class ApiResponse<T extends CommonCode> {
-    private Response<T> response;
+public class ApiResponse {
+    private Response response;
 }
 
 @Data
-class Response <T extends CommonCode>{
+class Response {
     private Header header;
-    private Body<T> body;
+    private Body body;
 }
 
 @Data
@@ -22,15 +23,24 @@ class Header {
 }
 
 @Data
-class Body <T extends CommonCode> {
+class Body {
     private String dataType;
-    private Items<T> items;
+    private Items items;
     private int numOfRows;
     private int pageNo;
     private int totalCount;
 }
 
 @Data
-class Items<T extends CommonCode> {
-    private List<T> item;
+class Items {
+    private List<Item<InfoCode>> item;
+}
+
+@Setter
+@ToString
+@Getter
+class Item<I extends InfoCode> {
+    private String infoCode;
+    private String name;
+    private String code;
 }
