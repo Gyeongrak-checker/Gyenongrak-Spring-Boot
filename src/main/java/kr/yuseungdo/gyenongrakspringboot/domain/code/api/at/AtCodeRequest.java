@@ -1,8 +1,10 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.ApiResponse;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -35,30 +37,59 @@ public class AtCodeRequest {
                 .retrieve();
     }
 
-    public ApiResponse getUnits(int page, int row) {
+    public ApiResponse<UnitCode> getUnits(int page, int row) {
         return request(page, row, ServicePath.UNITS)
-                .bodyToMono(ApiResponse.class)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<SizesCode> getSize(int page, int row) {
+        return request(page, row, ServicePath.SIZES)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SizesCode>>() {})
                 .block();
     }
 
 
-//    public SizeApiResponse getSize(int page, int row) {
-//        return request(page, row, ServicePath.SIZES)
-//                .bodyToMono(SizeApiResponse.class)
-//                .block();
-//    }
-//
-//
-//    public GradeApiResponse getGrades(int page, int row) {
-//        return request(page, row, ServicePath.GRADE)
-//                .bodyToMono(GradeApiResponse.class)
-//                .block();
-//    }
-//
-//
-//    public PackageApiResponse getPackages(int page, int row) {
-//        return request(page, row, ServicePath.PACKAGE)
-//                .bodyToMono(PackageApiResponse.class)
-//                .block();
-//    }
+    public ApiResponse<GradeCode> getGrades(int page, int row) {
+        return request(page, row, ServicePath.GRADE)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<GradeCode>>() {})
+                .block();
+    }
+
+
+    public ApiResponse<PackagingCode> getPackages(int page, int row) {
+        return request(page, row, ServicePath.PACKAGE)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PackagingCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<CorpsCode> getCorps (int page, int row) {
+        return request(page, row, ServicePath.COP)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<CorpsCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<WholesaleMarketsCode> getMarket(int page, int row) {
+        return request(page, row, ServicePath.MARKET)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<WholesaleMarketsCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<LargeProduct> getLargeProduct(int page, int row) {
+        return request(page, row, ServicePath.PRODUCT)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<LargeProduct>>() {})
+                .block();
+    }
+
+    public ApiResponse<MidProduct> getMidProduct(int page, int row) {
+        return request(page, row, ServicePath.PRODUCT)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<MidProduct>>() {})
+                .block();
+    }
+
+    public ApiResponse<SmallProduct> getSmallProduct(int page, int row) {
+        return request(page, row, ServicePath.PRODUCT)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SmallProduct>>() {})
+                .block();
+    }
 }

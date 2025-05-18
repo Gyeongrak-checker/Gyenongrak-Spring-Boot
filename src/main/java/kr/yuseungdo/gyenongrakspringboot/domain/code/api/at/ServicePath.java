@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public enum ServicePath implements RequestPath {
     UNITS("/units"),
-    GRADE("/grade"),
+    GRADE("/grades"),
     PACKAGE("/packagings"),
     SIZES("/sizes"),
     MARKET("/wholesaleMarkets"),
