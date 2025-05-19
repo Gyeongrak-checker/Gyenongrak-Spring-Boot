@@ -11,9 +11,10 @@ import org.springframework.stereotype.Component;
 public class StartEventListener {
 
     private final AtCodeRequest codeRequest;
+    private final
 
     @EventListener(ApplicationReadyEvent.class)
-    public void start() {
+    void codeInit() {
 
     }
 }
