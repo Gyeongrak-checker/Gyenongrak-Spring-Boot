@@ -2,6 +2,7 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -75,21 +76,16 @@ public class AtCodeRequest {
                 .block();
     }
 
-    public ApiResponse<LargeProduct> getLargeProduct(int page, int row) {
+    public ApiResponse<Product> getProduct(int page, int row) {
         return request(page, row, ServicePath.PRODUCT)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<LargeProduct>>() {})
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<Product>>() {})
                 .block();
     }
 
-    public ApiResponse<MidProduct> getMidProduct(int page, int row) {
-        return request(page, row, ServicePath.PRODUCT)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<MidProduct>>() {})
+    public ApiResponse<PlaceOrigins> getPlaceOrigins(int page, int row) {
+        return request(page, row, ServicePath.PLACEORIGIN)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOrigins>>() {})
                 .block();
     }
 
-    public ApiResponse<SmallProduct> getSmallProduct(int page, int row) {
-        return request(page, row, ServicePath.PRODUCT)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SmallProduct>>() {})
-                .block();
-    }
 }

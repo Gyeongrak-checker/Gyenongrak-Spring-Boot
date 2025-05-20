@@ -6,9 +6,9 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
-@Table(name = "home")
+@Table(name = "place_origins")
 @NoArgsConstructor
-public class Home {
+public class PlaceOrigins {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -6,13 +6,22 @@ import lombok.Setter;
 
 @Setter
 @Getter
-public class LargeProduct {
+public class Product {
     @JsonProperty("gds_lclsf_cd")
     private String large;
 
     @JsonProperty("gds_lclsf_nm")
-    private String name;
+    private String largeName;
 
     @JsonProperty("gds_mclsf_cd")
-    private String child;
+    private String mid;
+
+    @JsonProperty("gds_mclsf_nm")
+    private String midName;
+
+    @JsonProperty("gds_sclsf_cd")
+    private String small;
+
+    @JsonProperty("gds_sclsf_nm")
+    private String smallName;
 }

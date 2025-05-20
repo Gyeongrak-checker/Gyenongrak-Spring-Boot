@@ -31,7 +31,7 @@ public class Auction {
 
     @ManyToOne
     @JoinColumn(name = "home_id")
-    private Home home;
+    private PlaceOrigins home;
 
     @ManyToOne
     @JoinColumn(name = "product_item_id")

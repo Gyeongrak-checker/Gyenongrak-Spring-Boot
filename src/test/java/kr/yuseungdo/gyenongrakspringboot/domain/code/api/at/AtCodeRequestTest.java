@@ -2,6 +2,7 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,17 +42,13 @@ class AtCodeRequestTest {
         ApiResponse<WholesaleMarketsCode> markets = codeRequest.getMarket(1, 100);
         assertApiResponse(markets, "WholesaleMarketsCode");
 
-        // 대분류 상품
-        ApiResponse<LargeProduct> large = codeRequest.getLargeProduct(1, 100);
-        assertApiResponse(large, "LargeProduct");
+        // 산지 코드
+        ApiResponse<PlaceOrigins> placeOrigins = codeRequest.getPlaceOrigins(1, 100);
+        assertApiResponse(placeOrigins, "PlaceOriginsCode");
 
-        // 중분류 상품
-        ApiResponse<MidProduct> mid = codeRequest.getMidProduct(1, 100);
-        assertApiResponse(mid, "MidProduct");
-
-        // 소분류 상품
-        ApiResponse<SmallProduct> small = codeRequest.getSmallProduct(1, 100);
-        assertApiResponse(small, "SmallProduct");
+        // 상품
+        ApiResponse<Product> product = codeRequest.getProduct(1, 100);
+        assertApiResponse(product, "Product");
     }
 
     private <T> void assertApiResponse(ApiResponse<T> response, String name) {
