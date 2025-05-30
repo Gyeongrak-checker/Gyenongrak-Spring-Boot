@@ -2,7 +2,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
@@ -44,13 +43,6 @@ public class AtCodeRequest {
                 .block();
     }
 
-    public ApiResponse<SizesCode> getSize(int page, int row) {
-        return request(page, row, ServicePath.SIZES)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SizesCode>>() {})
-                .block();
-    }
-
-
     public ApiResponse<GradeCode> getGrades(int page, int row) {
         return request(page, row, ServicePath.GRADE)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<GradeCode>>() {})
@@ -82,9 +74,9 @@ public class AtCodeRequest {
                 .block();
     }
 
-    public ApiResponse<PlaceOrigins> getPlaceOrigins(int page, int row) {
+    public ApiResponse<PlaceOriginsCode> getPlaceOrigins(int page, int row) {
         return request(page, row, ServicePath.PLACEORIGIN)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOrigins>>() {})
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOriginsCode>>() {})
                 .block();
     }
 

@@ -2,7 +2,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -30,10 +29,6 @@ class AtCodeRequestTest {
         ApiResponse<CorpsCode> corps = codeRequest.getCorps(1, 100);
         assertApiResponse(corps, "CorpsCode");
 
-        // 크기 코드
-        ApiResponse<SizesCode> sizes = codeRequest.getSize(1, 100);
-        assertApiResponse(sizes, "SizesCode");
-
         // 포장 코드
         ApiResponse<PackagingCode> packages = codeRequest.getPackages(1, 100);
         assertApiResponse(packages, "PackagingCode");
@@ -43,7 +38,7 @@ class AtCodeRequestTest {
         assertApiResponse(markets, "WholesaleMarketsCode");
 
         // 산지 코드
-        ApiResponse<PlaceOrigins> placeOrigins = codeRequest.getPlaceOrigins(1, 100);
+        ApiResponse<PlaceOriginsCode> placeOrigins = codeRequest.getPlaceOrigins(1, 100);
         assertApiResponse(placeOrigins, "PlaceOriginsCode");
 
         // 상품

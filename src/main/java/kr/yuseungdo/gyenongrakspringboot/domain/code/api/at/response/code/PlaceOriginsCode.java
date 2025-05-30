@@ -1,8 +1,8 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
+import lombok.*;
 
 @Getter
 @Setter
@@ -11,4 +11,8 @@ public class PlaceOriginsCode {
     private String placeOrigins;
     @JsonProperty("plor_nm")
     private String name;
+
+    public PlaceOrigins toEntity() {
+        return PlaceOrigins.builder().code(this.placeOrigins).name(this.name).build();
+    }
 }
