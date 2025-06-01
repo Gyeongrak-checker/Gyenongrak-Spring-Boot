@@ -20,8 +20,4 @@ public class WholesaleCoporation {
     @Column(unique = true)
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name = "wholesale_market_id")
-    private WholesaleMarket wholesaleMarket;
-
 }

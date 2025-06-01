@@ -37,12 +37,6 @@ public class AtCodeRequest {
                 .retrieve();
     }
 
-    public ApiResponse<UnitCode> getUnits(int page, int row) {
-        return request(page, row, ServicePath.UNITS)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitCode>>() {})
-                .block();
-    }
-
     public ApiResponse<GradeCode> getGrades(int page, int row) {
         return request(page, row, ServicePath.GRADE)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<GradeCode>>() {})
@@ -68,9 +62,9 @@ public class AtCodeRequest {
                 .block();
     }
 
-    public ApiResponse<Product> getProduct(int page, int row) {
+    public ApiResponse<ProductCode> getProduct(int page, int row) {
         return request(page, row, ServicePath.PRODUCT)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<Product>>() {})
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<ProductCode>>() {})
                 .block();
     }
 

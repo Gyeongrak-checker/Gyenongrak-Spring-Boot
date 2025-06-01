@@ -1,12 +1,13 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "product_item")
 @Getter
+@Builder
+@Table(name = "product_item")
+@AllArgsConstructor
 @NoArgsConstructor
 public class ProductItem {
 
@@ -17,9 +18,4 @@ public class ProductItem {
 
     @Column(unique = true)
     private String code;
-
-    @ManyToOne
-    @JoinColumn(name = "product_variety_id")
-    private ProductVariety variety;
-
 }

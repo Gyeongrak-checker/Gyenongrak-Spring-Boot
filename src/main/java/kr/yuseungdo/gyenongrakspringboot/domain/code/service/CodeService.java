@@ -3,9 +3,7 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.AtCodeRequest;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Grade;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -52,30 +50,33 @@ public class CodeService {
     private int wholesaleMarketTotalCount;
 
     public void init() {
-        ApiResponse<Product> product = codeRequest.getProduct(1, productItemTotalCount);
+        productItemRepository.deleteAll();
+        ApiResponse<ProductCode> product = codeRequest.getProduct(1, productItemTotalCount);
 
-        ApiResponse<CorpsCode> corps = codeRequest.getCorps(1, corpsTotalCount);
-        ApiResponse<GradeCode> grades = codeRequest.getGrades(1, gradeTotalCount);
-        ApiResponse<WholesaleMarketsCode> market = codeRequest.getMarket(1, wholesaleMarketTotalCount);
-        ApiResponse<PackagingCode> packages = codeRequest.getPackages(1, packageTotalCount);
-        ApiResponse<PlaceOriginsCode> placeOrigins = codeRequest.getPlaceOrigins(1, placeOriginsCount);
-        ApiResponse<UnitCode> units = codeRequest.getUnits(1, unitTotalCount);
-
-
-        List<Grade> gradeCodes = grades.getItems().stream()
-                .map(GradeCode::toEntity)
-                .toList();
-        gradeRepository.saveAll(gradeCodes);
+//        ApiResponse<CorpsCode> corps = codeRequest.getCorps(1, corpsTotalCount);
+//        ApiResponse<WholesaleMarketsCode> market = codeRequest.getMarket(1, wholesaleMarketTotalCount);
+//        ApiResponse<GradeCode> grades = codeRequest.getGrades(1, gradeTotalCount);
+//        ApiResponse<PackagingCode> packages = codeRequest.getPackages(1, packageTotalCount);
+//        ApiResponse<PlaceOriginsCode> placeOrigins = codeRequest.getPlaceOrigins(1, placeOriginsCount);
 
 
-        List<PlaceOrigins> placeOriginsList = placeOrigins.getItems().stream().map(PlaceOriginsCode::toEntity).toList();
-        placeOriginsRepository.saveAll(placeOriginsList);
+//        List<Grade> gradeCodes = grades.getItems().stream()
+//                .map(GradeCode::toEntity)
+//                .toList();
+//        gradeRepository.saveAll(gradeCodes);
+//
+//
+//        List<PlaceOrigins> placeOriginsList = placeOrigins.getItems().stream().map(PlaceOriginsCode::toEntity).toList();
+//        placeOriginsRepository.saveAll(placeOriginsList);
+//
+//
+//        List<Package> packageList = packages.getItems().stream().map(PackagingCode::toEntity).toList();
+//        packageRepository.saveAll(packageList);
 
+        List<AgriculturalCategory> productItemList = product.getItems().stream().map(ProductCode::toEntity).toList();
 
-        List<Package> packageList = packages.getItems().stream().map(PackagingCode::toEntity).toList();
-        packageRepository.saveAll(packageList);
+        log.info(productItemList.toString());
 
-
-
+//        agriculturalCategoryRepository.saveAll(productItemList);
     }
 }

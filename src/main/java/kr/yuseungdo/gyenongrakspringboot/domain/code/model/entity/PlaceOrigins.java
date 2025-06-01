@@ -21,9 +21,4 @@ public class PlaceOrigins {
 
     @Column(unique = true)
     private String code;
-
-
-    public Object toEntity() {
-        return null;
-    }
 }

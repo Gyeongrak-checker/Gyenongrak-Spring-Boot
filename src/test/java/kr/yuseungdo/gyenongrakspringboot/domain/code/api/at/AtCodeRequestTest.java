@@ -17,10 +17,6 @@ class AtCodeRequestTest {
 
     @Test
     void getAllCodeResponses() {
-        // 단위 코드
-        ApiResponse<UnitCode> units = codeRequest.getUnits(1, 100);
-        assertApiResponse(units, "UnitCode");
-
         // 학년 코드
         ApiResponse<GradeCode> grades = codeRequest.getGrades(1, 100);
         assertApiResponse(grades, "GradeCode");
@@ -42,7 +38,7 @@ class AtCodeRequestTest {
         assertApiResponse(placeOrigins, "PlaceOriginsCode");
 
         // 상품
-        ApiResponse<Product> product = codeRequest.getProduct(1, 100);
+        ApiResponse<ProductCode> product = codeRequest.getProduct(1, 100);
         assertApiResponse(product, "Product");
     }
 

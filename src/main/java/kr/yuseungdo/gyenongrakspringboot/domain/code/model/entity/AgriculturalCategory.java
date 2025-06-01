@@ -2,12 +2,17 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
+
+import java.util.List;
 
 // 부류
 @Entity
 @Getter
+@Builder
 @Table(name = "agricultural_category")
+@AllArgsConstructor
+@NoArgsConstructor
 public class AgriculturalCategory {
 
     @Id
@@ -19,4 +24,6 @@ public class AgriculturalCategory {
     @Column(unique = true)
     private String code;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    List<ProductVariety> productVarieties;
 }
