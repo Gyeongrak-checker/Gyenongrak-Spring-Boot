@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -50,33 +51,13 @@ public class CodeService {
     private int wholesaleMarketTotalCount;
 
     public void init() {
-        productItemRepository.deleteAll();
-        ApiResponse<ProductCode> product = codeRequest.getProduct(1, productItemTotalCount);
-
-//        ApiResponse<CorpsCode> corps = codeRequest.getCorps(1, corpsTotalCount);
-//        ApiResponse<WholesaleMarketsCode> market = codeRequest.getMarket(1, wholesaleMarketTotalCount);
-//        ApiResponse<GradeCode> grades = codeRequest.getGrades(1, gradeTotalCount);
-//        ApiResponse<PackagingCode> packages = codeRequest.getPackages(1, packageTotalCount);
-//        ApiResponse<PlaceOriginsCode> placeOrigins = codeRequest.getPlaceOrigins(1, placeOriginsCount);
-
-
-//        List<Grade> gradeCodes = grades.getItems().stream()
-//                .map(GradeCode::toEntity)
-//                .toList();
-//        gradeRepository.saveAll(gradeCodes);
-//
-//
-//        List<PlaceOrigins> placeOriginsList = placeOrigins.getItems().stream().map(PlaceOriginsCode::toEntity).toList();
-//        placeOriginsRepository.saveAll(placeOriginsList);
-//
-//
-//        List<Package> packageList = packages.getItems().stream().map(PackagingCode::toEntity).toList();
-//        packageRepository.saveAll(packageList);
-
-        List<AgriculturalCategory> productItemList = product.getItems().stream().map(ProductCode::toEntity).toList();
-
-        log.info(productItemList.toString());
-
-//        agriculturalCategoryRepository.saveAll(productItemList);
+        saveCategory();
     }
+
+    private void saveCategory() {
+        productItemRepository.deleteAll();
+        ApiResponse<ProductCode> products = codeRequest.getProduct(1, productItemTotalCount);
+
+    }
+
 }

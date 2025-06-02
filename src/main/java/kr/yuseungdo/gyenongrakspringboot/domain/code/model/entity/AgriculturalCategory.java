@@ -10,6 +10,7 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@ToString
 @Table(name = "agricultural_category")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +27,9 @@ public class AgriculturalCategory {
 
     @OneToMany(fetch = FetchType.LAZY)
     List<ProductVariety> productVarieties;
+
+
+    public AgriculturalCategory toEntity() {
+        return AgriculturalCategory.builder().code(this.code).name(this.name).build();
+    }
 }
