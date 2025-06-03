@@ -51,13 +51,14 @@ public class CodeService {
     private int wholesaleMarketTotalCount;
 
     public void init() {
-        saveCategory();
-    }
-
-    private void saveCategory() {
         productItemRepository.deleteAll();
-        ApiResponse<ProductCode> products = codeRequest.getProduct(1, productItemTotalCount);
-
+        saveProduct();
     }
 
+    private void saveProduct() {
+        List<ProductCode> productCodes = codeRequest.getProduct(1, productItemTotalCount).getItems();
+
+
+
+    }
 }

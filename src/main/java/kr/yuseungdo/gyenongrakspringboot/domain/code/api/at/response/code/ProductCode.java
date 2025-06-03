@@ -30,22 +30,16 @@ public class ProductCode {
     @JsonProperty("gds_sclsf_nm")
     private String smallName;
 
-
-    public ProductItem itemToEntity() {
+    public ProductItem toItemEntity() {
         return ProductItem.builder().name(this.smallName).code(this.small).build();
     }
 
-    public ProductVariety productVarietyToEntity(List<ProductItem> items) {
+    public ProductVariety toVarietyEntity(List<ProductItem> items) {
         return ProductVariety.builder().name(this.midName).code(this.mid).productItems(items).build();
     }
 
-    public AgriculturalCategory agriculturalCategoryToEntity(List<ProductVariety> item) {
-        return AgriculturalCategory.builder().name(this.largeName).code(this.large).productVarieties(item).build();
+    public AgriculturalCategory toCategoryEntity(List<ProductVariety> varieties) {
+        return AgriculturalCategory.builder().name(this.largeName).code(this.large).productVarieties(varieties).build();
     }
 
-    public AgriculturalCategory toEntity() {
-        ProductItem item = itemToEntity();
-        ProductVariety productVariety = productVarietyToEntity(List.of(item));
-        return agriculturalCategoryToEntity(List.of(productVariety));
-    }
 }
