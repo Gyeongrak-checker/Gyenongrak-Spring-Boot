@@ -10,7 +10,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -25,6 +28,7 @@ public class CodeService {
     private final PlaceOriginsRepository placeOriginsRepository;
     private final PackageRepository packageRepository;
     private final ProductItemRepository productItemRepository;
+    private final ProductVarietyRepository productVarietyRepository;
     private final WholesaleCoporationRepository wholesaleCoporationRepository;
     private final WholesaleMarketRepository wholesaleMarketRepository;
 
@@ -56,9 +60,37 @@ public class CodeService {
     }
 
     private void saveProduct() {
+        Map<String, ProductItem> itemMap = new HashMap<>();
+        Map<String, ProductVariety> varietyMap = new HashMap<>();
+        Map<String, AgriculturalCategory> categoryMap = new HashMap<>();
+
         List<ProductCode> productCodes = codeRequest.getProduct(1, productItemTotalCount).getItems();
 
+        for (ProductCode code : productCodes) {
+            // 소분류
+            ProductItem item = itemMap.computeIfAbsent(code.getSmall(), k ->
+                    ProductItem.builder().code(code.getSmall()).name(code.getSmallName()).build()
+            );
 
+            // 중분류
+            ProductVariety variety = varietyMap.computeIfAbsent(code.getMid(), k ->
+                    ProductVariety.builder().code(code.getMid()).name(code.getMidName()).productItems(new ArrayList<>()).build()
+            );
+            if (!variety.getProductItems().contains(item)) {
+                variety.getProductItems().add(item);
+            }
 
+            // 대분류
+            AgriculturalCategory category = categoryMap.computeIfAbsent(code.getLarge(), k ->
+                    AgriculturalCategory.builder().code(code.getLarge()).name(code.getLargeName()).productVarieties(new ArrayList<>()).build()
+            );
+            if (!category.getProductVarieties().contains(variety)) {
+                category.getProductVarieties().add(variety);
+            }
+        }
+
+        productItemRepository.saveAll(itemMap.values());
+        productVarietyRepository.saveAll(varietyMap.values());
+        agriculturalCategoryRepository.saveAll(categoryMap.values());
     }
 }
