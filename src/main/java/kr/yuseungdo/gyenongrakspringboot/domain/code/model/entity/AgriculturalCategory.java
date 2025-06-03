@@ -4,13 +4,13 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
-// 부류
 @Entity
 @Getter
+@Setter
 @Builder
-@ToString
 @Table(name = "agricultural_category")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -25,6 +25,6 @@ public class AgriculturalCategory {
     @Column(unique = true)
     private String code;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    List<ProductVariety> productVarieties;
+    @OneToMany(mappedBy = "agriculturalCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductVariety> productVarieties = new ArrayList<>();
 }

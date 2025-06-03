@@ -5,6 +5,7 @@ import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @ToString
 @Table(name = "product_item")
@@ -20,4 +21,9 @@ public class ProductItem {
 
     @Column(unique = true)
     private String code;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_variety_id", nullable = false)
+    @ToString.Exclude
+    private ProductVariety productVariety;
 }
