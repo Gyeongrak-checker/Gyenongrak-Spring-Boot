@@ -12,6 +12,9 @@ public class Config {
     public WebClient webClient() {
         DefaultUriBuilderFactory factory = new DefaultUriBuilderFactory();
         factory.setEncodingMode(DefaultUriBuilderFactory.EncodingMode.NONE);
-        return WebClient.builder().uriBuilderFactory(factory).build();
+        return WebClient.builder()
+                .uriBuilderFactory(factory)
+                .codecs(configurer -> configurer.defaultCodecs().
+                        maxInMemorySize(16 * 1024 * 1024)).build();
     }
 }

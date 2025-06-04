@@ -19,11 +19,9 @@ public class ProductItem {
 
     private String name;
 
-    @Column(unique = true)
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_variety_id", nullable = false)
-    @ToString.Exclude
+    @JoinColumn(name = "product_variety_id")
     private ProductVariety productVariety;
 }

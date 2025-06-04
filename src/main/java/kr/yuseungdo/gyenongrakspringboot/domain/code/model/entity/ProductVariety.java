@@ -22,7 +22,6 @@ public class ProductVariety {
 
     private String name;
 
-    @Column(unique = true)
     private String code;
 
     @ManyToOne(fetch = FetchType.LAZY)
