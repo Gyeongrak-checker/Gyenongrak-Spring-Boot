@@ -25,5 +25,5 @@ public class AgriculturalCategory {
     private String code;
 
     @OneToMany(mappedBy = "agriculturalCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ProductVariety> productVarieties = new ArrayList<>();
+    private List<ProductVariety> productVarieties;
 }

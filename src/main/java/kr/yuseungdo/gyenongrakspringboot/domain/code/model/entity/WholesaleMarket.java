@@ -26,6 +26,6 @@ public class WholesaleMarket {
     @Column(unique = true)
     private String code;
 
-    @OneToMany(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY)
     private List<WholesaleCoporation> coporations;
 }

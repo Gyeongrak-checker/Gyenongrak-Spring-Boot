@@ -69,6 +69,43 @@ public class CodeService {
 
         List<ProductCode> codes = codeRequest.getProduct(0, productItemTotalCount).getItems();
 
-    }
+        List<AgriculturalCategory> categories = new ArrayList<>();
+        List<ProductVariety> varieties = new ArrayList<>();
+        List<ProductItem> items = new ArrayList<>();
 
+        for(int i = 0; i < 100; i++) {
+            log.info("{}", codes.get(i));
+        }
+
+
+        for(ProductCode code : codes) {
+
+            if(code.getMid().equals("00")) {
+                AgriculturalCategory category = AgriculturalCategory.builder()
+                        .code(code.getLarge())
+                        .name(code.getLargeName())
+                        .build();
+
+                categories.add(category);
+                continue;
+            }
+
+            if(code.getSmall().equals("00")) {
+                ProductVariety variety = ProductVariety.builder()
+                        .code(code.getSmall())
+                        .name(code.getSmallName())
+                        .build();
+
+                varieties.add(variety);
+                continue;
+            }
+
+            ProductItem item = ProductItem.builder()
+                    .code(code.getSmall())
+                    .name(code.getSmallName())
+                    .build();
+
+            items.add(item);
+        }
+    }
 }
