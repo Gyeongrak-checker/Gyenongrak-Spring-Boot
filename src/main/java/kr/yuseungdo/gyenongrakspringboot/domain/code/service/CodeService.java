@@ -2,21 +2,16 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.AtCodeRequest;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.Items;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -67,45 +62,93 @@ public class CodeService {
         gradeRepository.deleteAll();
 
 
+        setGrade();
+
+        setPackage();
+
+        setWholesaleMarket();
+
+        setPlaceOrigins();
+
+        setProductCodes();
+
+    }
+
+    private void setGrade() {
+        List<Grade> gradeCodes = codeRequest.getGrades(0, gradeTotalCount).getItems().stream().map(GradeCode::toEntity).toList();
+        gradeRepository.saveAll(gradeCodes);
+    }
+
+    private void setPackage() {
+        List<Package> packages = codeRequest.getPackages(0, packageTotalCount).getItems().stream().map(PackagingCode::toEntity).toList();
+        packageRepository.saveAll(packages);
+    }
+
+    private void setPlaceOrigins() {
+        List<PlaceOrigins> placeOrigins = codeRequest.getPlaceOrigins(0, placeOriginsCount).getItems().stream().map(PlaceOriginsCode::toEntity).toList();
+        placeOriginsRepository.saveAll(placeOrigins);
+    }
+
+    private void setWholesaleMarket() {
+        List<WholesaleMarket> wholesaleMarkets = codeRequest.getMarket(0, wholesaleMarketTotalCount).getItems().stream().map(WholesaleMarketsCode::toEntity).toList();
+        wholesaleMarketRepository.saveAll(wholesaleMarkets);
+    }
+
+    private void setWholesaleCoporation() {
+
+    }
+
+
+
+    private void setProductCodes() {
         List<ProductCode> codes = codeRequest.getProduct(0, productItemTotalCount).getItems();
 
         List<AgriculturalCategory> categories = new ArrayList<>();
         List<ProductVariety> varieties = new ArrayList<>();
         List<ProductItem> items = new ArrayList<>();
 
-        for(int i = 0; i < 100; i++) {
-            log.info("{}", codes.get(i));
-        }
+        ProductVariety currentVariety;
 
+        for (ProductCode code : codes) {
 
-        for(ProductCode code : codes) {
+            // 소분류 (항상 ProductItem 추가)
+            ProductItem item = ProductItem.builder()
+                    .code(code.getSmall())
+                    .name(code.getSmallName())
+                    .build();
+            items.add(item);
 
-            if(code.getMid().equals("00")) {
+            // 중분류 구분 조건
+            if (code.getSmall().equals("00")) {
+                // 중분류 생성
+                currentVariety = ProductVariety.builder()
+                        .code(code.getMid())
+                        .name(code.getMidName())
+                        .productItems(new ArrayList<>(items)) // 복사
+                        .build();
+
+                items.clear(); // 다음 아이템을 위해 초기화
+                varieties.add(currentVariety);
+                continue;
+            }
+
+            // 대분류 구분 조건
+            if (code.getMid().equals("00")) {
                 AgriculturalCategory category = AgriculturalCategory.builder()
                         .code(code.getLarge())
                         .name(code.getLargeName())
                         .build();
 
+                // ProductVariety → AgriculturalCategory 관계 설정
+                for (ProductVariety variety : varieties) {
+                    variety.setAgriculturalCategory(category);
+                }
+                category.setProductVarieties(varieties);
+
+                varieties = new ArrayList<>();
                 categories.add(category);
-                continue;
             }
-
-            if(code.getSmall().equals("00")) {
-                ProductVariety variety = ProductVariety.builder()
-                        .code(code.getSmall())
-                        .name(code.getSmallName())
-                        .build();
-
-                varieties.add(variety);
-                continue;
-            }
-
-            ProductItem item = ProductItem.builder()
-                    .code(code.getSmall())
-                    .name(code.getSmallName())
-                    .build();
-
-            items.add(item);
         }
+        agriculturalCategoryRepository.saveAll(categories);
     }
 }

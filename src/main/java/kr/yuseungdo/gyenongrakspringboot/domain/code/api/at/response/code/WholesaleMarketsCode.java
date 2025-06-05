@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.OneToMany;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.WholesaleCoporation;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.WholesaleMarket;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -13,11 +14,15 @@ import java.util.List;
 @Getter
 public class WholesaleMarketsCode {
     @JsonProperty("whsl_mrkt_cd")
-    private String wholesaleMarket;
+    private String code;
 
     @JsonProperty("whsl_mrkt_nm")
     private String name;
 
     @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY)
     List<WholesaleCoporation> coporations;
+
+    public WholesaleMarket toEntity() {
+        return WholesaleMarket.builder().code(this.code).name(this.name).build();
+    }
 }

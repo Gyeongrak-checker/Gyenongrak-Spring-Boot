@@ -7,7 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
 @Table(name = "product_item")
 @AllArgsConstructor
 @NoArgsConstructor

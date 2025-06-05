@@ -4,13 +4,13 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @Builder
+@ToString
 @Table(name = "agricultural_category")
 @AllArgsConstructor
 @NoArgsConstructor

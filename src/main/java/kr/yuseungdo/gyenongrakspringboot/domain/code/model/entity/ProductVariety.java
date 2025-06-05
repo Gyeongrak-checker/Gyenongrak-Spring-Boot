@@ -10,7 +10,6 @@ import java.util.List;
 @Getter
 @Setter
 @Builder
-@ToString
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "product_variety")
@@ -24,12 +23,10 @@ public class ProductVariety {
 
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "agricultural_category_id", nullable = false)
-    @ToString.Exclude
     private AgriculturalCategory agriculturalCategory;
 
     @OneToMany(mappedBy = "productVariety", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    @ToString.Exclude
     private List<ProductItem> productItems = new ArrayList<>();
 }
