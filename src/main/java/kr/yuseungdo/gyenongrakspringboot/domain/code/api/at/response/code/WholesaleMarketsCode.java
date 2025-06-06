@@ -22,7 +22,7 @@ public class WholesaleMarketsCode {
     @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY)
     List<WholesaleCoporation> coporations;
 
-    public WholesaleMarket toEntity() {
-        return WholesaleMarket.builder().code(this.code).name(this.name).build();
+    public WholesaleMarket toEntity(List<WholesaleCoporation> coporations) {
+        return WholesaleMarket.builder().code(this.code).name(this.name).coporations(coporations).build();
     }
 }

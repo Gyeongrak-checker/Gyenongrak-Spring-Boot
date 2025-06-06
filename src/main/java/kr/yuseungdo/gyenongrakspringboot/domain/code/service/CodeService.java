@@ -62,15 +62,15 @@ public class CodeService {
         gradeRepository.deleteAll();
 
 
-        setGrade();
+//        setGrade();
 
-        setPackage();
+//        setPackage();
 
         setWholesaleMarket();
 
-        setPlaceOrigins();
-
-        setProductCodes();
+//        setPlaceOrigins();
+//
+//        setProductCodes();
 
     }
 
@@ -90,15 +90,29 @@ public class CodeService {
     }
 
     private void setWholesaleMarket() {
-        List<WholesaleMarket> wholesaleMarkets = codeRequest.getMarket(0, wholesaleMarketTotalCount).getItems().stream().map(WholesaleMarketsCode::toEntity).toList();
-        wholesaleMarketRepository.saveAll(wholesaleMarkets);
+        List<CorpsCode> coporations = codeRequest.getCorps(0, corpsTotalCount).getItems();
+        List<WholesaleMarketsCode> marketsCodes = codeRequest.getMarket(0, wholesaleMarketTotalCount).getItems();
+
+        // 수산물은 빠져 있는 상태
+
+        List<WholesaleMarket> marketEntities = new ArrayList<>();
+
+        for (WholesaleMarketsCode marketsCode : marketsCodes) {
+
+            List<WholesaleCoporation> coporationEntities = new ArrayList<>();
+
+            for (CorpsCode coporation : coporations) {
+                int value = Integer.parseInt(coporation.getCode().substring(0, 5)) / Integer.parseInt(marketsCode.getCode());
+
+                if(value == 0) {
+                    coporationEntities.add(coporation.toEntity());
+                }
+            }
+            marketEntities.add(marketsCode.toEntity(coporationEntities));
+            log.info("count: {}", coporationEntities.size());
+            wholesaleMarketRepository.saveAll(marketEntities);
+        }
     }
-
-    private void setWholesaleCoporation() {
-
-    }
-
-
 
     private void setProductCodes() {
         List<ProductCode> codes = codeRequest.getProduct(0, productItemTotalCount).getItems();
