@@ -1,6 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.global.event;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.service.CodeService;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.service.CodeInitService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class StartEventListener {
 
-    private final CodeService codeService;
+    private final CodeInitService codeService;
 
     @EventListener(ApplicationReadyEvent.class)
     void codeInit() {

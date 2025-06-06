@@ -1,10 +1,7 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -12,6 +9,7 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
+@ToString
 @Table(name = "wholesale_market")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -23,9 +21,9 @@ public class WholesaleMarket {
 
     private String name;
 
-    @Column(unique = true)
     private String code;
 
-    @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY)
+    @Setter
+    @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY,  cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WholesaleCoporation> coporations;
 }
