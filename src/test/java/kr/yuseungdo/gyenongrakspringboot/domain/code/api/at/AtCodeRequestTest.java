@@ -2,7 +2,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -18,10 +17,6 @@ class AtCodeRequestTest {
 
     @Test
     void getAllCodeResponses() {
-        // 단위 코드
-        ApiResponse<UnitCode> units = codeRequest.getUnits(1, 100);
-        assertApiResponse(units, "UnitCode");
-
         // 학년 코드
         ApiResponse<GradeCode> grades = codeRequest.getGrades(1, 100);
         assertApiResponse(grades, "GradeCode");
@@ -29,10 +24,6 @@ class AtCodeRequestTest {
         // 생산자 코드
         ApiResponse<CorpsCode> corps = codeRequest.getCorps(1, 100);
         assertApiResponse(corps, "CorpsCode");
-
-        // 크기 코드
-        ApiResponse<SizesCode> sizes = codeRequest.getSize(1, 100);
-        assertApiResponse(sizes, "SizesCode");
 
         // 포장 코드
         ApiResponse<PackagingCode> packages = codeRequest.getPackages(1, 100);
@@ -43,11 +34,11 @@ class AtCodeRequestTest {
         assertApiResponse(markets, "WholesaleMarketsCode");
 
         // 산지 코드
-        ApiResponse<PlaceOrigins> placeOrigins = codeRequest.getPlaceOrigins(1, 100);
+        ApiResponse<PlaceOriginsCode> placeOrigins = codeRequest.getPlaceOrigins(1, 100);
         assertApiResponse(placeOrigins, "PlaceOriginsCode");
 
         // 상품
-        ApiResponse<Product> product = codeRequest.getProduct(1, 100);
+        ApiResponse<ProductCode> product = codeRequest.getProduct(1, 100);
         assertApiResponse(product, "Product");
     }
 

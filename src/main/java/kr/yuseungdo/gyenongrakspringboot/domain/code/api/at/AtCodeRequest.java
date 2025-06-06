@@ -2,8 +2,8 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.PlaceOrigins;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.MediaType;
@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class AtCodeRequest {
@@ -31,25 +32,12 @@ public class AtCodeRequest {
                         uriBuilder.scheme(schema).host(host).path(codePath + path.getPath())
                                 .queryParam("serviceKey", apiKey)
                                 .queryParam("page", page)
-                                .queryParam("row", row)
+                                .queryParam("numOfRows", row)
                                 .build()
                 )
                 .accept(MediaType.APPLICATION_JSON)
                 .retrieve();
     }
-
-    public ApiResponse<UnitCode> getUnits(int page, int row) {
-        return request(page, row, ServicePath.UNITS)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitCode>>() {})
-                .block();
-    }
-
-    public ApiResponse<SizesCode> getSize(int page, int row) {
-        return request(page, row, ServicePath.SIZES)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SizesCode>>() {})
-                .block();
-    }
-
 
     public ApiResponse<GradeCode> getGrades(int page, int row) {
         return request(page, row, ServicePath.GRADE)
@@ -76,15 +64,15 @@ public class AtCodeRequest {
                 .block();
     }
 
-    public ApiResponse<Product> getProduct(int page, int row) {
+    public ApiResponse<ProductCode> getProduct(int page, int row) {
         return request(page, row, ServicePath.PRODUCT)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<Product>>() {})
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<ProductCode>>() {})
                 .block();
     }
 
-    public ApiResponse<PlaceOrigins> getPlaceOrigins(int page, int row) {
+    public ApiResponse<PlaceOriginsCode> getPlaceOrigins(int page, int row) {
         return request(page, row, ServicePath.PLACEORIGIN)
-                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOrigins>>() {})
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOriginsCode>>() {})
                 .block();
     }
 

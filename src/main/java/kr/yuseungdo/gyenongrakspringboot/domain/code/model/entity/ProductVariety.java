@@ -1,24 +1,32 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
+@Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "product_variety")
 public class ProductVariety {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
-    @Column(unique = true)
     private String code;
 
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private AgriculturalCategory category;
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "agricultural_category_id", nullable = false)
+    private AgriculturalCategory agriculturalCategory;
+
+    @OneToMany(mappedBy = "productVariety", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProductItem> productItems = new ArrayList<>();
 }

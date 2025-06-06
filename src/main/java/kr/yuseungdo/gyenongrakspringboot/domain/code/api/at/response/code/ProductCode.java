@@ -1,12 +1,19 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.AgriculturalCategory;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.ProductItem;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.ProductVariety;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
+
+import java.util.List;
 
 @Setter
 @Getter
-public class Product {
+@ToString
+public class ProductCode {
     @JsonProperty("gds_lclsf_cd")
     private String large;
 
@@ -24,4 +31,5 @@ public class Product {
 
     @JsonProperty("gds_sclsf_nm")
     private String smallName;
+
 }

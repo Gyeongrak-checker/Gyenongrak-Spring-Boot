@@ -1,6 +1,7 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,8 @@ public class PackagingCode {
     private String packaging;
     @JsonProperty("pkg_nm")
     private String name;
+
+    public Package toEntity() {
+        return Package.builder().code(this.packaging).name(this.name).build();
+    }
 }

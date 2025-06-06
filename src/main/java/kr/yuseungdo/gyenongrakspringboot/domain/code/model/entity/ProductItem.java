@@ -1,25 +1,26 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Entity
-@Table(name = "product_item")
 @Getter
+@Setter
+@Builder
+@Table(name = "product_item")
+@AllArgsConstructor
 @NoArgsConstructor
 public class ProductItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
 
-    @Column(unique = true)
     private String code;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_variety_id")
-    private ProductVariety variety;
-
+    private ProductVariety productVariety;
 }
