@@ -23,6 +23,5 @@ public class WholesaleCoporation {
 
     @Setter
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "wholesale_market_id")
     private WholesaleMarket wholesaleMarket;
 }

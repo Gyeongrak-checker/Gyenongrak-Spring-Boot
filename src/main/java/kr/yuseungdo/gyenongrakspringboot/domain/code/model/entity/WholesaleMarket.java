@@ -22,8 +22,4 @@ public class WholesaleMarket {
     private String name;
 
     private String code;
-
-    @Setter
-    @OneToMany(mappedBy = "wholesaleMarket", fetch = FetchType.LAZY,  cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WholesaleCoporation> coporations;
 }

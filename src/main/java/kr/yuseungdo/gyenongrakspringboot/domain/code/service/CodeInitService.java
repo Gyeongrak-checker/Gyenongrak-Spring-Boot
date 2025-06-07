@@ -52,17 +52,17 @@ public class CodeInitService {
         productVarietyRepository.deleteAll();
         agriculturalCategoryRepository.deleteAll();
         productItemRepository.deleteAll();
-//        wholesaleCoporationRepository.deleteAll();
-//        wholesaleMarketRepository.deleteAll();
-//        packageRepository.deleteAll();
-//        placeOriginsRepository.deleteAll();
-//        gradeRepository.deleteAll();
+        wholesaleCoporationRepository.deleteAll();
+        wholesaleMarketRepository.deleteAll();
+        packageRepository.deleteAll();
+        placeOriginsRepository.deleteAll();
+        gradeRepository.deleteAll();
 
 
-//        setGrade();
-//        setPackage();
-//        setWholesaleMarket();
-//        setPlaceOrigins();
+        setGrade();
+        setPackage();
+        setWholesaleMarket();
+        setPlaceOrigins();
         setProductCodes();
 
     }
@@ -86,37 +86,29 @@ public class CodeInitService {
         List<CorpsCode> coporations = codeRequest.getCorps(0, corpsTotalCount).getItems();
         List<WholesaleMarketsCode> marketsCodes = codeRequest.getMarket(0, wholesaleMarketTotalCount).getItems();
 
-        // 수산물은 빠져 있는 상태
-
-        List<WholesaleMarket> marketEntities = new ArrayList<>();
-
         for (WholesaleMarketsCode marketsCode : marketsCodes) {
-            List<WholesaleCoporation> coporationEntities = new ArrayList<>();
-
+            // 1. 시장 엔티티 생성 및 저장
             WholesaleMarket market = WholesaleMarket.builder()
                     .code(marketsCode.getCode())
                     .name(marketsCode.getName())
                     .build();
 
+            wholesaleMarketRepository.save(market); // ID 확보
+
+            List<WholesaleCoporation> coporationEntities = new ArrayList<>();
+
+            // 2. 해당 시장에 속한 도매법인 필터링 및 엔티티 생성
             for (CorpsCode corpsCode : coporations) {
-                if (corpsCode.getCode().substring(0, 6).equals(marketsCode.getCode())) {
+                if (corpsCode.getCode().startsWith(marketsCode.getCode())) {
                     WholesaleCoporation coporation = corpsCode.toEntity();
-                    // 연관관계 설정
-                    coporation.setWholesaleMarket(market); // 여기에 market이 필요하므로 위치 조정 필요
+                    coporation.setWholesaleMarket(market); // 연관관계 설정 (연관관계의 주인)
                     coporationEntities.add(coporation);
                 }
             }
 
-            market.setCoporations(coporationEntities);
-
-            // 연관관계 주인 설정
-            for (WholesaleCoporation coporation : coporationEntities) {
-                coporation.setWholesaleMarket(market);  // 연관관계의 주인 설정
-            }
-
-            marketEntities.add(market);
+            // 3. 도매법인 저장 (wholesaleMarket가 설정된 상태)
+            wholesaleCoporationRepository.saveAll(coporationEntities);
         }
-        wholesaleMarketRepository.saveAll(marketEntities);
     }
 
     private void setProductCodes() {
