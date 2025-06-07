@@ -19,4 +19,7 @@ public class ProductItem {
     private String name;
 
     private String code;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private ProductVariety variety;
 }

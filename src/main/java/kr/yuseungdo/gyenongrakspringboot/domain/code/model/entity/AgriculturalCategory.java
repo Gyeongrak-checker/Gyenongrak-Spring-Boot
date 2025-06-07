@@ -4,8 +4,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
-
 @Entity
 @Getter
 @Setter
@@ -23,7 +21,4 @@ public class AgriculturalCategory {
     private String name;
 
     private String code;
-
-    @OneToMany
-    private List<ProductVariety> productVarieties;
 }

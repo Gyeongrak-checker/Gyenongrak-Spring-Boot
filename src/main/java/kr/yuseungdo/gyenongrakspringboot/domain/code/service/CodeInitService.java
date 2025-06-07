@@ -122,57 +122,41 @@ public class CodeInitService {
     private void setProductCodes() {
         List<ProductCode> codes = codeRequest.getProduct(0, productItemTotalCount).getItems();
 
-        List<AgriculturalCategory> categories = new ArrayList<>();
-        List<ProductVariety> varieties = new ArrayList<>();
-        List<ProductItem> items = new ArrayList<>();
-
+        AgriculturalCategory currentCategory = null;
         ProductVariety currentVariety = null;
 
         for (ProductCode code : codes) {
+            // 대분류
+            if (code.getMid().equals("00")) {
+                currentCategory = AgriculturalCategory.builder()
+                        .code(code.getLarge())
+                        .name(code.getLargeName())
+                        .build();
 
-            // 항상 ProductItem 생성
-            ProductItem item = ProductItem.builder()
-                    .code(code.getSmall())
-                    .name(code.getSmallName())
-                    .build();
-
-            // 중분류가 설정되어 있는 경우에만 연관관계 설정
-            if (currentVariety != null) {
-                currentVariety.getProductItems().add(item);
+                agriculturalCategoryRepository.save(currentCategory); // ✅ 먼저 저장
+                continue;
             }
 
-            items.add(item);
-
-            // 중분류 조건
+            // 중분류
             if (code.getSmall().equals("00")) {
                 currentVariety = ProductVariety.builder()
                         .code(code.getMid())
                         .name(code.getMidName())
-                        .productItems(new ArrayList<>()) // 이후 item들을 직접 넣음
+                        .category(currentCategory) // ✅ 저장된 category 참조
                         .build();
 
-                varieties.add(currentVariety);
-                items.clear(); // 새로운 중분류를 위해 초기화
+                productVarietyRepository.save(currentVariety); // ✅ 먼저 저장
                 continue;
             }
 
-            // 대분류 조건
-            if (code.getMid().equals("00")) {
-                AgriculturalCategory category = AgriculturalCategory.builder()
-                        .code(code.getLarge())
-                        .name(code.getLargeName())
-                        .productVarieties(new ArrayList<>())
-                        .build();
+            // 소분류
+            ProductItem item = ProductItem.builder()
+                    .code(code.getSmall())
+                    .name(code.getSmallName())
+                    .variety(currentVariety) // ✅ 저장된 variety 참조
+                    .build();
 
-                for (ProductVariety variety : varieties) {
-                    category.getProductVarieties().add(variety); // 양방향 설정
-                }
-
-                categories.add(category);
-                varieties = new ArrayList<>();
-            }
+            productItemRepository.save(item);
         }
-
-        agriculturalCategoryRepository.saveAll(categories);
     }
 }

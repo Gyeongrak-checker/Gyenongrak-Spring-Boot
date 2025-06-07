@@ -3,8 +3,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @Getter
@@ -23,6 +21,6 @@ public class ProductVariety {
 
     private String code;
 
-    @OneToMany
-    private List<ProductItem> productItems = new ArrayList<>();
+    @ManyToOne(fetch = FetchType.LAZY)
+    private AgriculturalCategory category;
 }
