@@ -23,10 +23,6 @@ public class ProductVariety {
 
     private String code;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "agricultural_category_id", nullable = false)
-    private AgriculturalCategory agriculturalCategory;
-
-    @OneToMany(mappedBy = "productVariety", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<ProductItem> productItems = new ArrayList<>();
 }

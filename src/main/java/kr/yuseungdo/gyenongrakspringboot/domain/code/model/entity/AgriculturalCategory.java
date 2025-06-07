@@ -24,6 +24,6 @@ public class AgriculturalCategory {
 
     private String code;
 
-    @OneToMany(mappedBy = "agriculturalCategory", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany
     private List<ProductVariety> productVarieties;
 }

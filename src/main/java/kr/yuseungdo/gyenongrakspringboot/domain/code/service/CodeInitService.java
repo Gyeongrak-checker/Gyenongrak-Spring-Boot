@@ -52,17 +52,17 @@ public class CodeInitService {
         productVarietyRepository.deleteAll();
         agriculturalCategoryRepository.deleteAll();
         productItemRepository.deleteAll();
-        wholesaleCoporationRepository.deleteAll();
-        wholesaleMarketRepository.deleteAll();
-        packageRepository.deleteAll();
-        placeOriginsRepository.deleteAll();
-        gradeRepository.deleteAll();
+//        wholesaleCoporationRepository.deleteAll();
+//        wholesaleMarketRepository.deleteAll();
+//        packageRepository.deleteAll();
+//        placeOriginsRepository.deleteAll();
+//        gradeRepository.deleteAll();
 
 
-        setGrade();
-        setPackage();
-        setWholesaleMarket();
-        setPlaceOrigins();
+//        setGrade();
+//        setPackage();
+//        setWholesaleMarket();
+//        setPlaceOrigins();
         setProductCodes();
 
     }
@@ -138,7 +138,6 @@ public class CodeInitService {
 
             // 중분류가 설정되어 있는 경우에만 연관관계 설정
             if (currentVariety != null) {
-                item.setProductVariety(currentVariety);
                 currentVariety.getProductItems().add(item);
             }
 
@@ -166,7 +165,6 @@ public class CodeInitService {
                         .build();
 
                 for (ProductVariety variety : varieties) {
-                    variety.setAgriculturalCategory(category);
                     category.getProductVarieties().add(variety); // 양방향 설정
                 }
 

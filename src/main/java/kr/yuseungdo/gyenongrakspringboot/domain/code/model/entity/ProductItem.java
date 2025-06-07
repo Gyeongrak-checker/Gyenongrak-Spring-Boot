@@ -19,8 +19,4 @@ public class ProductItem {
     private String name;
 
     private String code;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_variety_id")
-    private ProductVariety productVariety;
 }
