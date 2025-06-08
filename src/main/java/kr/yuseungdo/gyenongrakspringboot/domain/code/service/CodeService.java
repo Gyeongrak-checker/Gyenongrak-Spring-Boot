@@ -1,8 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.dto.ProductDto;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.AgriculturalCategory;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.ProductItem;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -32,9 +30,12 @@ public class CodeService {
     }
 
     public List<ProductDto> getMidProducts(String largeCode) {
+        return productVarietyRepository.findAllByCategoryCode(largeCode).stream().map(variety -> ProductDto.builder()
+                .code(variety.getCode()).name(variety.getName()).build()).toList();
     }
 
-    public List<ProductDto> getSmallProducts(String largeCode, String midCode) {
-
+    public List<ProductDto> getSmallProducts(String midCode) {
+        return productItemRepository.findAllByVarietyCode(midCode).stream().map(productItem -> ProductDto.builder()
+                .code(productItem.getCode()).name(productItem.getName()).build()).toList();
     }
 }
