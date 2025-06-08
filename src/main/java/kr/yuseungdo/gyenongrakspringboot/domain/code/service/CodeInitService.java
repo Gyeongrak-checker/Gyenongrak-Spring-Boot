@@ -7,12 +7,14 @@ import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CodeInitService {
@@ -46,6 +48,7 @@ public class CodeInitService {
 
     @Value("${code.totalCount.wholesaleMarkets}")
     private int wholesaleMarketTotalCount;
+
 
     @Transactional
     public void init() {
