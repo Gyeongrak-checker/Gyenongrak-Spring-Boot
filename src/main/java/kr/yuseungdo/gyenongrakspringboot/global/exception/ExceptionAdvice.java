@@ -1,6 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.global.exception;
 
-import kr.yuseungdo.gyenongrakspringboot.global.Response;
+import kr.yuseungdo.gyenongrakspringboot.global.dto.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
