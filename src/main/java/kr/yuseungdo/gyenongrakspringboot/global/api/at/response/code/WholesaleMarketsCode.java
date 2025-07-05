@@ -1,4 +1,4 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.FetchType;

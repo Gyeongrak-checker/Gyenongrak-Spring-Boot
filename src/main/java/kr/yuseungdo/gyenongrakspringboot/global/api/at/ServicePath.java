@@ -1,4 +1,4 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

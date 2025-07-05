@@ -1,7 +1,8 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtCodeRequest;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.template.ApiResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -1,11 +1,11 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 
 import jakarta.transaction.Transactional;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.AtCodeRequest;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtCodeRequest;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

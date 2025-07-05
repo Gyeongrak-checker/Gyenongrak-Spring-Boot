@@ -1,14 +1,9 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.AgriculturalCategory;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.ProductItem;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.ProductVariety;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
-
-import java.util.List;
 
 @Setter
 @Getter

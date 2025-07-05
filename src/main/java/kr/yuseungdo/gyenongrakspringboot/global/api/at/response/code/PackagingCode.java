@@ -1,4 +1,4 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;

@@ -1,4 +1,4 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at.response.template;
 
 import lombok.Data;
 

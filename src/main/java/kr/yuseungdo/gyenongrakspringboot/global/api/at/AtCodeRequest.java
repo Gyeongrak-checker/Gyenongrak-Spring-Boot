@@ -1,7 +1,7 @@
-package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
+package kr.yuseungdo.gyenongrakspringboot.global.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.template.ApiResponse;
-import kr.yuseungdo.gyenongrakspringboot.domain.code.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.*;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.template.ApiResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
