@@ -1,7 +1,7 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.service;
 
 import jakarta.transaction.Transactional;
-import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtCodeRequest;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtRequest;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.repository.*;
@@ -19,10 +19,9 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CodeInitService {
 
-    private final AtCodeRequest codeRequest;
+    private final AtRequest codeRequest;
 
     private final AgriculturalCategoryRepository agriculturalCategoryRepository;
-    private final GradeRepository gradeRepository;
     private final PlaceOriginsRepository placeOriginsRepository;
     private final PackageRepository packageRepository;
     private final ProductItemRepository productItemRepository;
@@ -59,20 +58,13 @@ public class CodeInitService {
         wholesaleMarketRepository.deleteAll();
         packageRepository.deleteAll();
         placeOriginsRepository.deleteAll();
-        gradeRepository.deleteAll();
 
 
-        setGrade();
         setPackage();
         setWholesaleMarket();
         setPlaceOrigins();
         setProductCodes();
 
-    }
-
-    private void setGrade() {
-        List<Grade> gradeCodes = codeRequest.getGrades(0, gradeTotalCount).getItems().stream().map(GradeCode::toEntity).toList();
-        gradeRepository.saveAll(gradeCodes);
     }
 
     private void setPackage() {

@@ -20,7 +20,6 @@ public class CodeService {
     private final WholesaleMarketRepository wholesaleMarketRepository;
     private final WholesaleCoporationRepository wholesaleCoporationRepository;
 
-    private final GradeRepository gradeRepository;
     private final PlaceOriginsRepository placeOriginsRepository;
     private final PackageRepository packageRepository;
 

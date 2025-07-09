@@ -1,5 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.global.api.at;
 
+import kr.yuseungdo.gyenongrakspringboot.domain.search.model.dto.AuctionApiDto;
 import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.*;
 import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.template.ApiResponse;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import org.springframework.web.reactive.function.client.WebClient.ResponseSpec;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class AtCodeRequest {
+public class AtRequest {
 
     private final WebClient webClient;
 
@@ -24,9 +25,10 @@ public class AtCodeRequest {
     private final String schema = "https";
     private final String host = "apis.data.go.kr";
     private final String codePath = "/B552845/katCode";
+    private final String searchPath = "/B552845/katRealTime";
 
 
-    private ResponseSpec request(int page, int row, ServicePath path) {
+    private ResponseSpec request(int page, int row, ServicePath path, String codePath) {
         return webClient.get()
                 .uri(uriBuilder ->
                         uriBuilder.scheme(schema).host(host).path(codePath + path.getPath())
@@ -40,39 +42,45 @@ public class AtCodeRequest {
     }
 
     public ApiResponse<GradeCode> getGrades(int page, int row) {
-        return request(page, row, ServicePath.GRADE)
+        return request(page, row, ServicePath.GRADE, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<GradeCode>>() {})
                 .block();
     }
 
 
     public ApiResponse<PackagingCode> getPackages(int page, int row) {
-        return request(page, row, ServicePath.PACKAGE)
+        return request(page, row, ServicePath.PACKAGE, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<PackagingCode>>() {})
                 .block();
     }
 
     public ApiResponse<CorpsCode> getCorps (int page, int row) {
-        return request(page, row, ServicePath.COP)
+        return request(page, row, ServicePath.COP, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<CorpsCode>>() {})
                 .block();
     }
 
     public ApiResponse<WholesaleMarketsCode> getMarket(int page, int row) {
-        return request(page, row, ServicePath.MARKET)
+        return request(page, row, ServicePath.MARKET, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<WholesaleMarketsCode>>() {})
                 .block();
     }
 
     public ApiResponse<ProductCode> getProduct(int page, int row) {
-        return request(page, row, ServicePath.PRODUCT)
+        return request(page, row, ServicePath.PRODUCT, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<ProductCode>>() {})
                 .block();
     }
 
     public ApiResponse<PlaceOriginsCode> getPlaceOrigins(int page, int row) {
-        return request(page, row, ServicePath.PLACEORIGIN)
+        return request(page, row, ServicePath.PLACEORIGIN, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOriginsCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<AuctionApiDto> getAuction(int page, int row) {
+        return request(page, row, ServicePath.SEARCH, searchPath)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<AuctionApiDto>>() {})
                 .block();
     }
 

@@ -13,7 +13,8 @@ public enum ServicePath implements RequestPath {
     MARKET("/wholesaleMarkets"),
     COP("/corps"),
     PLACEORIGIN("/placeOrigins"),
-    PRODUCT("/goods")
+    PRODUCT("/goods"),
+    SEARCH("/trades")
     ;
     private final String path;
 }

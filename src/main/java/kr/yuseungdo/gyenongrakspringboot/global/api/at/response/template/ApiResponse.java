@@ -10,4 +10,8 @@ public class ApiResponse<T> {
     public List<T> getItems() {
         return response.getBody().getItems().getItem();
     }
+
+    public long getTotalCount() {
+        return response.getBody().getTotalCount();
+    }
 }

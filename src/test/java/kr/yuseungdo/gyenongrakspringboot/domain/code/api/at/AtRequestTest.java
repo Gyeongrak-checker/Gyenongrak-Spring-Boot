@@ -1,6 +1,6 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.code.api.at;
 
-import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtCodeRequest;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.AtRequest;
 import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.*;
 import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.template.ApiResponse;
 import org.junit.jupiter.api.Test;
@@ -11,10 +11,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 
 @SpringBootTest
-class AtCodeRequestTest {
+class AtRequestTest {
 
     @Autowired
-    private AtCodeRequest codeRequest; // 빈으로 주입받기
+    private AtRequest codeRequest; // 빈으로 주입받기
 
     @Test
     void getAllCodeResponses() {
