@@ -3,11 +3,13 @@ package kr.yuseungdo.gyenongrakspringboot.domain.search.model.dto;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.ToString;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
+@ToString
 @AllArgsConstructor
 public class AuctionApiDto {
 
@@ -44,6 +46,6 @@ public class AuctionApiDto {
     }
 
     public int getPrice() {
-        return Integer.parseInt(price);
+        return Integer.parseInt(this.price.split("\\.")[0]);
     }
 }

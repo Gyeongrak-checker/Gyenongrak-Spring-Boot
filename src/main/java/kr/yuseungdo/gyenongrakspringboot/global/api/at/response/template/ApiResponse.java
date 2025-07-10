@@ -11,7 +11,11 @@ public class ApiResponse<T> {
         return response.getBody().getItems().getItem();
     }
 
-    public long getTotalCount() {
+    public int getTotalCount() {
         return response.getBody().getTotalCount();
+    }
+
+    public int getPage() {
+        return response.getBody().getPageNo();
     }
 }
