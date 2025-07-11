@@ -11,10 +11,6 @@ import java.util.Date;
 // 경매 정보
 @Entity
 @Getter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
 @Table(name = "auction")
 public class Auction {
 
@@ -41,6 +37,14 @@ public class Auction {
     @ManyToOne
     @JoinColumn(name = "product_item_id")
     private ProductItem productItem;
+
+    @ManyToOne
+    @JoinColumn(name = "units_id")
+    private Units units;
+
+    @ManyToOne
+    @JoinColumn(name = "sizes_id")
+    private Sizes sizes;
 
     private int price;
 
