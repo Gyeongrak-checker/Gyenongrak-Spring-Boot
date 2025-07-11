@@ -3,6 +3,7 @@ package kr.yuseungdo.gyenongrakspringboot.domain.search.model.entity;
 import jakarta.persistence.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
+import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.GradeCode;
 import lombok.*;
 
 import java.util.Date;
@@ -26,16 +27,16 @@ public class Auction {
     private WholesaleMarket wholesaleMarket;
 
     @ManyToOne
-    @JoinColumn(name = "product_variety_id")
-    private ProductVariety productVariety;
-
-    @ManyToOne
     @JoinColumn(name = "package_id")
     private Package productPackage;
 
     @ManyToOne
     @JoinColumn(name = "home_id")
     private PlaceOrigins home;
+
+    @ManyToOne
+    @JoinColumn(name = "grade_id")
+    private Grade grade;
 
     @ManyToOne
     @JoinColumn(name = "product_item_id")

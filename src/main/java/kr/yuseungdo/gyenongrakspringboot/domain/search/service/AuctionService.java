@@ -29,9 +29,38 @@ public class AuctionService {
     private void fetchApi() {
         // DB에 몇개가 저장되어 있는가?
         int localCount = repository.countAll();
-        int needCount = 0;
-        while(needCount < MAX_COUNT) {
 
+        int page = localCount / MAX_COUNT; // 현제 페이지
+        if (page == 0) page = 1;
+        int apiCount = Integer.MAX_VALUE;
+
+        ApiResponse<AuctionApiDto> response = atRequest.getAuction(page, MAX_COUNT);
+        List<AuctionApiDto> items = response.getItems();
+
+        for (int i = 0; i < 10; i++) {
+            AuctionApiDto dto = items.get(i);
+            log.info("dto : {}", dto.toString());
+
+            Auction entity = mapper.toEntity(dto);
+            repository.save(entity);
         }
+
+
+//
+//        log.info("fetch api response: {}", entity);
+
+
+//        while (localCount < apiCount) {
+//            ApiResponse<AuctionApiDto> response = atRequest.getAuction(page, MAX_COUNT);
+//            localCount += MAX_COUNT;
+//            apiCount = response.getTotalCount();
+//            page++;
+//            repository.saveAll(response.getItems().stream().map(mapper::toEntity).toList());
+//            break;
+//        }
+    }
+
+    private void save() {
+
     }
 }

@@ -31,8 +31,14 @@ public class AuctionApiDto {
     @JsonProperty("plor_cd")
     private String originPlaceCode;
 
+    @JsonProperty("gds_lclsf_cd")
+    private String largeCode;
+
+    @JsonProperty("gds_mclsf_cd")
+    private String middleCode;
+
     @JsonProperty("gds_sclsf_cd")
-    private String itemCode;
+    private String smallCode;
 
     @JsonProperty("scsbd_prc")
     private String price;

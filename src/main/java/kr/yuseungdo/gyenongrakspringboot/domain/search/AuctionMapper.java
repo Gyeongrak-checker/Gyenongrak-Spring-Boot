@@ -11,45 +11,33 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+import java.util.Optional;
+
 @Slf4j
 @Component
 @AllArgsConstructor
 public class AuctionMapper {
     private final WholesaleMarketRepository marketRepo;
-    private final AgriculturalCategoryRepository categoryRepo;
-    private final ProductVarietyRepository varietyRepo;
     private final PackageRepository packageRepo;
     private final PlaceOriginsRepository originRepo;
     private final ProductItemRepository itemRepo;
+    private final ProductItemRepository productItemRepository;
 
     public Auction toEntity(AuctionApiDto dto) {
 
-
-        log.info("dto: {}", dto);
-
         return Auction.builder()
                 .wholesaleMarket(getMarket(dto.getMarketCode()))
-                .productVariety(getVariety(dto.getUnitCode()))
                 .productPackage(getPackage(dto.getPackageCode()))
                 .home(getOrigin(dto.getOriginPlaceCode()))
-                .productItem(getItem(dto.getItemCode()))
+                .productItem(getItem(dto).orElse(null))
                 .auctionTime(dto.getAuctionTime())
-                .price(dto.getPrice()) // 가격은 따로 넣거나 계산 필요
+                .price(dto.getPrice())
                 .build();
     }
 
     private WholesaleMarket getMarket(String code) {
         return marketRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
-    }
-
-    private AgriculturalCategory getAgriculturalCategory(String code) {
-        return categoryRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
-    }
-
-    private ProductVariety getVariety(String unitCode) {
-        return varietyRepo.findByCode(unitCode)
                 .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
     }
 
@@ -63,8 +51,12 @@ public class AuctionMapper {
                 .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
     }
 
-    private ProductItem getItem(String code) {
-        return itemRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+    private Optional<ProductItem> getItem(AuctionApiDto dto) {
+        String largeCode = dto.getLargeCode();
+        String middleCode = dto.getMiddleCode();
+        String smallCode = dto.getSmallCode();
+
+        return productItemRepository.findProductItemByCodes(smallCode, middleCode, largeCode);
+
     }
 }
