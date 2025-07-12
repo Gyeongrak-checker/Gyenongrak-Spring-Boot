@@ -3,7 +3,6 @@ package kr.yuseungdo.gyenongrakspringboot.domain.search.model.entity;
 import jakarta.persistence.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.*;
 import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Package;
-import kr.yuseungdo.gyenongrakspringboot.global.api.at.response.code.GradeCode;
 import lombok.*;
 
 import java.util.Date;
@@ -11,6 +10,9 @@ import java.util.Date;
 // 경매 정보
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "auction")
 public class Auction {
 

@@ -22,12 +22,15 @@ public class CodeInitService {
     private final AtRequest codeRequest;
 
     private final AgriculturalCategoryRepository agriculturalCategoryRepository;
+    private final GradeRepository gradeRepository;
     private final PlaceOriginsRepository placeOriginsRepository;
     private final PackageRepository packageRepository;
     private final ProductItemRepository productItemRepository;
     private final ProductVarietyRepository productVarietyRepository;
     private final WholesaleCoporationRepository wholesaleCoporationRepository;
     private final WholesaleMarketRepository wholesaleMarketRepository;
+    private final UnitsRepository unitsRepository;
+    private final SizeRepository sizeRepository;
 
 
     @Value("${code.totalCount.corps}")
@@ -48,23 +51,22 @@ public class CodeInitService {
     @Value("${code.totalCount.wholesaleMarkets}")
     private int wholesaleMarketTotalCount;
 
+    @Value("${code.totalCount.units}")
+    private int unitsTotalCount;
+
+    @Value("${code.totalCount.sizes}")
+    private int sizeTotalCount;
 
     @Transactional
     public void init() {
-        productVarietyRepository.deleteAll();
-        agriculturalCategoryRepository.deleteAll();
-        productItemRepository.deleteAll();
-        wholesaleCoporationRepository.deleteAll();
-        wholesaleMarketRepository.deleteAll();
-        packageRepository.deleteAll();
-        placeOriginsRepository.deleteAll();
-
-
-        setPackage();
-        setWholesaleMarket();
-        setPlaceOrigins();
-        setProductCodes();
-
+        if (!packageRepository.existsBy()) setPackage();
+        if (!wholesaleMarketRepository.existsBy()) setWholesaleMarket();
+        if (!placeOriginsRepository.existsBy()) setPlaceOrigins();
+        if (!productItemRepository.existsBy()) setProductCodes();
+        if (!gradeRepository.existsBy()) setGrade();
+        if (!agriculturalCategoryRepository.existsBy()) setUnit();
+        if(!unitsRepository.existsBy()) setUnit();
+        if(!sizeRepository.existsBy()) setSize();
     }
 
     private void setPackage() {
@@ -72,9 +74,24 @@ public class CodeInitService {
         packageRepository.saveAll(packages);
     }
 
+    private void setSize() {
+        List<Sizes> sizes = codeRequest.getSize(0, sizeTotalCount).getItems().stream().map(SizeCode::toEntity).toList();
+        sizeRepository.saveAll(sizes);
+    }
+
     private void setPlaceOrigins() {
         List<PlaceOrigins> placeOrigins = codeRequest.getPlaceOrigins(0, placeOriginsCount).getItems().stream().map(PlaceOriginsCode::toEntity).toList();
         placeOriginsRepository.saveAll(placeOrigins);
+    }
+
+    private void setGrade() {
+        List<Grade> grades = codeRequest.getGrades(0, gradeTotalCount).getItems().stream().map(GradeCode::toEntity).toList();
+        gradeRepository.saveAll(grades);
+    }
+
+    private void setUnit() {
+        List<Units> units = codeRequest.getUnits(0, unitsTotalCount).getItems().stream().map(UnitsCode::toEntity).toList();
+        unitsRepository.saveAll(units);
     }
 
     private void setWholesaleMarket() {

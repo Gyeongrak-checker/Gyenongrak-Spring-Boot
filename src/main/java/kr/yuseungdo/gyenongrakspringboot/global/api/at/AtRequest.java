@@ -46,6 +46,11 @@ public class AtRequest {
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<GradeCode>>() {})
                 .block();
     }
+    
+    public ApiResponse<UnitsCode> getUnits(int page, int row) {
+        return request(page, row, ServicePath.UNITS, codePath)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<UnitsCode>>() {}).block();
+    }
 
 
     public ApiResponse<PackagingCode> getPackages(int page, int row) {
@@ -75,6 +80,12 @@ public class AtRequest {
     public ApiResponse<PlaceOriginsCode> getPlaceOrigins(int page, int row) {
         return request(page, row, ServicePath.PLACEORIGIN, codePath)
                 .bodyToMono(new ParameterizedTypeReference<ApiResponse<PlaceOriginsCode>>() {})
+                .block();
+    }
+
+    public ApiResponse<SizeCode> getSize(int page, int row) {
+        return request(page, row, ServicePath.SIZES, codePath)
+                .bodyToMono(new ParameterizedTypeReference<ApiResponse<SizeCode>>() {})
                 .block();
     }
 

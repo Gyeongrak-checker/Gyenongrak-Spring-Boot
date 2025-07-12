@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface AgriculturalCategoryRepository extends JpaRepository<AgriculturalCategory, Long> {
+    boolean existsBy();
     Optional<AgriculturalCategory> findByCode(String code);
 }

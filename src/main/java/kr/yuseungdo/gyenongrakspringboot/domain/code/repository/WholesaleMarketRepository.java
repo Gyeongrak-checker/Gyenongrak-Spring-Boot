@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.Optional;
 
 public interface WholesaleMarketRepository extends JpaRepository<WholesaleMarket, Long> {
+    boolean existsBy();
     Optional<WholesaleMarket> findByCode(String code);
 }

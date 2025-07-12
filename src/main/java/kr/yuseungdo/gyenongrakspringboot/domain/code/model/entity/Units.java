@@ -6,6 +6,9 @@ import lombok.*;
 
 @Entity
 @Getter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "units")
 public class Units {
 

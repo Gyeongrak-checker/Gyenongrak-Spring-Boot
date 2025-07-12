@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface ProductItemRepository extends JpaRepository<ProductItem, Long> {
+    boolean existsBy();
     List<ProductItem> findAllByVarietyCode(String code);
     Optional<ProductItem> findByCode(String code);
 
