@@ -11,7 +11,6 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -23,6 +22,8 @@ public class AuctionMapper {
     private final PlaceOriginsRepository originRepo;
     private final ProductItemRepository itemRepo;
     private final ProductItemRepository productItemRepository;
+    private final GradeRepository gradeRepository;
+    private final UnitsRepository unitsRepository;
 
     public Auction toEntity(AuctionApiDto dto) {
 
@@ -33,6 +34,8 @@ public class AuctionMapper {
                 .productItem(getItem(dto).orElse(null))
                 .auctionTime(dto.getAuctionTime())
                 .price(dto.getPrice())
+                .grade(getGrade(dto.getUnitCode()))
+                .units(getUnit(dto.getUnitCode()))
                 .build();
     }
 
@@ -48,6 +51,16 @@ public class AuctionMapper {
 
     private PlaceOrigins getOrigin(String code) {
         return originRepo.findByCode(code)
+                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+    }
+
+    private Grade getGrade(String code) {
+        return gradeRepository.findByCode(code)
+                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+    }
+
+    private Units getUnit(String code) {
+        return unitsRepository.findByCode(code)
                 .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
     }
 

@@ -17,12 +17,6 @@ public class CodeService {
     private final ProductVarietyRepository productVarietyRepository;
     private final ProductItemRepository productItemRepository;
 
-    private final WholesaleMarketRepository wholesaleMarketRepository;
-    private final WholesaleCoporationRepository wholesaleCoporationRepository;
-
-    private final PlaceOriginsRepository placeOriginsRepository;
-    private final PackageRepository packageRepository;
-
     @Transactional(readOnly = true)
     public List<ProductDto> getLargeProducts() {
         return agriculturalCategoryRepository.findAll().stream().map(category -> ProductDto.builder()
