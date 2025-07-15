@@ -12,6 +12,8 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Slf4j
@@ -24,22 +26,17 @@ public class AuctionService {
     private final AtRequest atRequest;
 
     private final int MAX_COUNT = 10000;
-
+    
     @Scheduled(cron = "*/10 * 0-23 * * *")
     private void fetchApi() {
         // DB에 몇개가 저장되어 있는가?
         int localCount = repository.countAll();
-        int needCount = 10;
-        int page = 1;
+        int page = localCount / MAX_COUNT;
+        if (page == 0) page = 1;
 
-        while(localCount <= needCount) {
-            ApiResponse<AuctionApiDto> response = atRequest.getAuction(page, MAX_COUNT);
-            needCount = response.getTotalCount();
+        ApiResponse<AuctionApiDto> apiResponse = atRequest.getAuction(page, MAX_COUNT);
 
-            List<Auction> auctions = response.getItems().stream().map(mapper::toEntity).toList();
-            repository.saveAll(auctions);
-            localCount += auctions.size();
-            page++;
-        }
+        Set<Auction> auctions = apiResponse.getItems().stream().map(mapper::toEntity).collect(Collectors.toSet());
+        repository.saveAll(auctions);
     }
 }

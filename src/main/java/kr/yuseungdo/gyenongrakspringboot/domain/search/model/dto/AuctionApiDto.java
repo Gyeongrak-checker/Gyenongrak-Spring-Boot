@@ -1,6 +1,7 @@
 package kr.yuseungdo.gyenongrakspringboot.domain.search.model.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import kr.yuseungdo.gyenongrakspringboot.domain.code.model.entity.Sizes;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
@@ -42,6 +43,9 @@ public class AuctionApiDto {
 
     @JsonProperty("scsbd_prc")
     private String price;
+
+    @JsonProperty("sz_cd")
+    private String sizesCode;
 
     public Date getAuctionTime() {
         try {

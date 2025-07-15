@@ -20,17 +20,20 @@ public class AuctionMapper {
     private final WholesaleMarketRepository marketRepo;
     private final PackageRepository packageRepo;
     private final PlaceOriginsRepository originRepo;
-    private final ProductItemRepository itemRepo;
     private final ProductItemRepository productItemRepository;
     private final GradeRepository gradeRepository;
     private final UnitsRepository unitsRepository;
+    private final SizeRepository sizeRepository;
 
     public Auction toEntity(AuctionApiDto dto) {
+
+        log.info(dto.toString());
 
         return Auction.builder()
                 .wholesaleMarket(getMarket(dto.getMarketCode()))
                 .productPackage(getPackage(dto.getPackageCode()))
                 .home(getOrigin(dto.getOriginPlaceCode()))
+                .sizes(getSize(dto.getSizesCode()))
                 .productItem(getItem(dto).orElse(null))
                 .auctionTime(dto.getAuctionTime())
                 .price(dto.getPrice())
@@ -64,12 +67,16 @@ public class AuctionMapper {
                 .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
     }
 
+    private Sizes getSize(String code) {
+        return sizeRepository.findByCode(code)
+                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+    }
+
     private Optional<ProductItem> getItem(AuctionApiDto dto) {
         String largeCode = dto.getLargeCode();
         String middleCode = dto.getMiddleCode();
         String smallCode = dto.getSmallCode();
 
         return productItemRepository.findProductItemByCodes(smallCode, middleCode, largeCode);
-
     }
 }
