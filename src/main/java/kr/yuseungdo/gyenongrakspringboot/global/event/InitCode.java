@@ -2,18 +2,18 @@ package kr.yuseungdo.gyenongrakspringboot.global.event;
 
 import kr.yuseungdo.gyenongrakspringboot.domain.code.service.CodeInitService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.context.ApplicationContextInitializer;
-import org.springframework.context.event.EventListener;
+import org.springframework.boot.ApplicationArguments;
+import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class StartEventListener {
+public class InitCode implements ApplicationRunner {
 
     private final CodeInitService codeService;
 
-    @EventListener(ApplicationContextInitializer.class)
-    void codeInit() {
+    @Override
+    public void run(ApplicationArguments args) throws Exception {
         codeService.init();
     }
 }

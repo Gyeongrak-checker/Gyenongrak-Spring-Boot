@@ -44,9 +44,9 @@ public class Auction {
     @JoinColumn(name = "units_id")
     private Units units;
 
-    @ManyToOne
-    @JoinColumn(name = "sizes_id")
-    private Sizes sizes;
+//    @ManyToOne
+//    @JoinColumn(name = "sizes_id")
+//    private Sizes sizes;
 
     private int price;
 

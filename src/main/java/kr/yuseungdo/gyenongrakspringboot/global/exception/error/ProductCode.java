@@ -9,7 +9,7 @@ import org.springframework.http.HttpStatusCode;
 @RequiredArgsConstructor
 public enum ProductCode implements ErrorCode {
 
-    NOTFOUND(HttpStatus.NOT_FOUND, "해당 코드는 없습니디ㅏ."),
+    NOT_FOUND(HttpStatus.NOT_FOUND, "해당 코드는 없습니디."),
     ;
 
     private final HttpStatusCode code;

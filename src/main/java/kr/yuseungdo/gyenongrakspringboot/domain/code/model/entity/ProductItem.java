@@ -7,7 +7,6 @@ import lombok.*;
 @Getter
 @Setter
 @Builder
-@ToString
 @Table(name = "product_item")
 @AllArgsConstructor
 @NoArgsConstructor
@@ -21,6 +20,14 @@ public class ProductItem {
 
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     private ProductVariety variety;
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "(" +
+                "id = " + id + ", " +
+                "name = " + name + ", " +
+                "code = " + code + ")";
+    }
 }

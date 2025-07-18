@@ -11,10 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 
 @Slf4j
 @Service
@@ -29,14 +27,6 @@ public class AuctionService {
     
     @Scheduled(cron = "*/10 * 0-23 * * *")
     private void fetchApi() {
-        // DB에 몇개가 저장되어 있는가?
-        int localCount = repository.countAll();
-        int page = localCount / MAX_COUNT;
-        if (page == 0) page = 1;
 
-        ApiResponse<AuctionApiDto> apiResponse = atRequest.getAuction(page, MAX_COUNT);
-
-        Set<Auction> auctions = apiResponse.getItems().stream().map(mapper::toEntity).collect(Collectors.toSet());
-        repository.saveAll(auctions);
     }
 }

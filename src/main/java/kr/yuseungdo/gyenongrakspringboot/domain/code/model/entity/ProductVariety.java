@@ -21,6 +21,6 @@ public class ProductVariety {
 
     private String code;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne()
     private AgriculturalCategory category;
 }

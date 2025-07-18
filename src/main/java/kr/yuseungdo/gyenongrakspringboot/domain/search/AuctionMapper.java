@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -26,15 +27,11 @@ public class AuctionMapper {
     private final SizeRepository sizeRepository;
 
     public Auction toEntity(AuctionApiDto dto) {
-
-        log.info(dto.toString());
-
         return Auction.builder()
                 .wholesaleMarket(getMarket(dto.getMarketCode()))
                 .productPackage(getPackage(dto.getPackageCode()))
                 .home(getOrigin(dto.getOriginPlaceCode()))
-                .sizes(getSize(dto.getSizesCode()))
-                .productItem(getItem(dto).orElse(null))
+                .productItem(getItem(dto))
                 .auctionTime(dto.getAuctionTime())
                 .price(dto.getPrice())
                 .grade(getGrade(dto.getUnitCode()))
@@ -44,39 +41,42 @@ public class AuctionMapper {
 
     private WholesaleMarket getMarket(String code) {
         return marketRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "MARKET"));
     }
 
     private Package getPackage(String code) {
         return packageRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "PACKAGE"));
     }
 
     private PlaceOrigins getOrigin(String code) {
         return originRepo.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "ORIGIN"));
     }
 
     private Grade getGrade(String code) {
         return gradeRepository.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "GRADE"));
     }
 
     private Units getUnit(String code) {
         return unitsRepository.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "UNIT"));
     }
 
     private Sizes getSize(String code) {
         return sizeRepository.findByCode(code)
-                .orElseThrow(() -> new ProductException(ProductCode.NOTFOUND));
+                .orElseThrow(() -> new ProductException(ProductCode.NOT_FOUND, code, "SIZE"));
     }
 
-    private Optional<ProductItem> getItem(AuctionApiDto dto) {
+    private ProductItem getItem(AuctionApiDto dto) {
         String largeCode = dto.getLargeCode();
         String middleCode = dto.getMiddleCode();
         String smallCode = dto.getSmallCode();
 
-        return productItemRepository.findProductItemByCodes(smallCode, middleCode, largeCode);
+        List<ProductItem> items = productItemRepository.findProductItemByCodes(smallCode, middleCode, largeCode);
+        ProductItem item = items.isEmpty() ? null : items.get(0);
+
+        return item;
     }
 }

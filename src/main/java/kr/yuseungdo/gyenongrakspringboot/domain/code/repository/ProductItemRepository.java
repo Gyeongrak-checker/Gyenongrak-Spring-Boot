@@ -10,18 +10,18 @@ import java.util.Optional;
 
 public interface ProductItemRepository extends JpaRepository<ProductItem, Long> {
     boolean existsBy();
+
     List<ProductItem> findAllByVarietyCode(String code);
+
     Optional<ProductItem> findByCode(String code);
 
     @Query("""
-    SELECT pi FROM ProductItem pi
-    JOIN pi.variety v
-    JOIN v.category c
-    WHERE pi.code = :itemCode
-      AND v.code = :varietyCode
-      AND c.code = :categoryCode
-""")
-    Optional<ProductItem> findProductItemByCodes(
+            SELECT pi FROM ProductItem pi
+            WHERE pi.code = :itemCode
+              AND pi.variety.code = :varietyCode
+              AND pi.variety.category.code = :categoryCode
+            """)
+    List<ProductItem> findProductItemByCodes(
             @Param("itemCode") String itemCode,
             @Param("varietyCode") String varietyCode,
             @Param("categoryCode") String categoryCode

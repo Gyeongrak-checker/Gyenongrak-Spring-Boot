@@ -44,8 +44,6 @@ public class AuctionApiDto {
     @JsonProperty("scsbd_prc")
     private String price;
 
-    @JsonProperty("sz_cd")
-    private String sizesCode;
 
     public Date getAuctionTime() {
         try {

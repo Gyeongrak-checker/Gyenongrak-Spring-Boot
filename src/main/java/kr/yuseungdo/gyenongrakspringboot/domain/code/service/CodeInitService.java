@@ -153,6 +153,11 @@ public class CodeInitService {
                 continue;
             }
 
+
+            if(code.getSmall().equals("-")) {
+                break;
+            }
+
             // 소분류
             ProductItem item = ProductItem.builder()
                     .code(code.getSmall())
